@@ -1,0 +1,31 @@
+{
+	"code": "2001",
+  	"message": "成功",
+  	"result": "success",
+  	"data":[
+  		{
+            "id":"0001",
+            "title":"文章1",
+            "author":"tom",
+            "categoryname":"分类名称1",
+            "createtime":"2017-05-01 00:00:00",
+			"updatetime":"2017-05-11 05:00:00"
+        }, 
+        {
+            "id":"0002",
+            "title":"文章2",
+            "author":"mary",
+            "categoryname":"分类名称2",
+            "createtime":"2017-05-01 00:00:00",
+			"updatetime":"2017-05-11 05:00:00"
+        }, 
+        {
+            "id":"0003",
+            "title":"文章3",
+            "author":"lily",
+            "categoryname":"分类名称1",
+            "createtime":"2017-05-01 00:00:00",
+			"updatetime":"2017-05-11 05:00:00"
+        }
+  	]
+}

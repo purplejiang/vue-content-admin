@@ -1,0 +1,19 @@
+{
+	"code": "2001",
+  	"message": "成功",
+  	"result": "success",
+  	"data":[
+  		{
+            "id":"type001",
+            "typename":"分类名称1"
+        }, 
+        {
+            "id":"type002",
+            "typename":"分类名称2"
+        }, 
+        {
+            "id":"type003",
+            "typename":"分类名称3"
+        }
+  	]
+}
