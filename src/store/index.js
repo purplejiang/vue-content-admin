@@ -14,8 +14,8 @@ const getters={
 
 }
 const mutations={
-	[types.SAVE_USER_TOKEN](state,data){
-		state.user.token=data;
+	[types.SAVE_USER](state,data){
+		state.user=data;
 	},
 	[types.LOGOUT](state){
 		state.user={};

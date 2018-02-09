@@ -9,21 +9,21 @@
           		<el-form-item prop="password">
             		<el-input type="password" placeholder="输入密码" v-model="formLogin.password" auto-complete="off" @keyup.enter.native="submitForm('formLogin')" ></el-input>
           		</el-form-item>
-          		<el-form-item>
+          		<el-form-item align="center">
             		<el-button type="primary" @click="submitForm('formLogin')">登录</el-button>
             		<el-button @click="resetForm('formLogin')">重置</el-button>
           		</el-form-item>
         	</el-form>
-			<div class="login-account">
+			<!-- <div class="login-account">
 	        	<span>账号：123</span><span>密码：123</span>
-	        </div>
+	        </div> -->
 		</div>
 	</div>
 </template>
 
-<script>
-	// import types from 
+<script>	
 	import localStore from '@/utils/localStore';
+	import API from '@/Api/api';
 	export default{
 		data(){
 			return{
@@ -45,35 +45,40 @@
 			console.log(this.$route.query.redirect)
 		},
 		methods:{
-			submitForm(name) {
-		    	const _this = this;
-		    	_this.$refs[name].validate((valid) => {
-		        	if (valid) _this.goLogin(); // 验证通过，前去登录
+			submitForm(name) {		    	
+		    	this.$refs[name].validate((valid) => {
+		        	if (valid) this.goLogin(); // 验证通过，前去登录
 		      	});
 		    },
 		    goLogin(){
 		    	const data={
 		    		username:this.formLogin.username,
 		    		password:this.formLogin.password
-		    	}
-		    	const _this=this;
-		    	console.log(data);
-		    	if(this.formLogin.username=='123' && this.formLogin.password=='123'){
+		    	}		    	
+		    	API.login({
+		    		email:this.formLogin.username,
+		    		password:this.formLogin.password
+		    	}).then(res=>{
+		    		console.log('登录成功:',res);
 		    		this.$message({
 		    			message:'登录成功',
 		    			type:'success'
 		    		})
 		    		const url = this.$route.query.redirect||'/';	    		
 		    		//存储user到store中	
-	    			this.$store.commit('SAVE_USER_TOKEN',this.formLogin.username);
-	    			console.log(this.$store.state.user);
+	    			this.$store.commit('SAVE_USER',res);
+	    			console.log('user:',this.$store.state.user);
 	    			localStore.setItem('boke_admin_user',this.$store.state.user);
 
 	    			this.$router.push({path:decodeURIComponent(url)});
+		    	},err=>{
+		    		console.log('登录失败：',err);		    		
+	    			this.$message({
+	    				message:`登录失败：${err.message}`,
+	    				type:'error'
+	    			})
 		    		
-		    	}else{
-		    		this.$message.error('用户名或密码错误');
-		    	}
+		    	})		    	
 		    },		    
 			resetForm(name) { // 重置表单		    	
 		      	this.$refs[name].resetFields();

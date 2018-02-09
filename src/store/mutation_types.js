@@ -1,4 +1,4 @@
 export default{
 	'LOGOUT':'LOGOUT',
-	'SAVE_USER_TOKEN':'SAVE_USER_TOKEN'
+	'SAVE_USER':'SAVE_USER'
 }

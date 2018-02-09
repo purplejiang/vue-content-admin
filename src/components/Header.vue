@@ -1,5 +1,4 @@
-<template>  
-	
+<template>
 	<el-row class="admin_header" type="flex">
 		<el-col :xs="12" :sm="12" :md="12" :lg="12">
 			<a class="header_logo" href="javascript:;"></a>
@@ -19,12 +18,11 @@
 				</el-dropdown-menu>
 			</el-dropdown>
 		</el-col>
-	</el-row>
-	
-  
+	</el-row> 
 </template>
 <script>
 import localStore from '@/utils/localStore';
+import API from '@/Api/api';
 export default {  
 	data(){
 		return{
@@ -33,17 +31,28 @@ export default {
 	},
 	computed:{
 		username(){
-			return this.$store.state.user.token;
+			return this.$store.state.user.email;
 		}
 	},
 	methods:{
 		handleCommand(command) { // 点击菜单项触发的事件回调
 			console.log(command)
 			if(command=='signOut'){
-				this.$store.commit('LOGOUT');
-				localStore.removeItem('boke_admin_user');
-				console.log(this.$store.state.user);
-				this.$router.replace({path:'/login'});
+				API.logout().then(res=>{
+					console.log('退出登录res:',res);
+					this.$store.commit('LOGOUT');
+					localStore.removeItem('boke_admin_user');
+					// console.log(this.$store.state.user);
+					this.$router.replace({path:'/login'});
+				},err=>{
+					console.log('调用登出接口出错：',err);
+					this.$notify({
+						message:`调用登出接口出错: ${err.message}`,
+						type:'error',
+						duration:0
+					})
+				})
+				
 			}
 		}
 	}
@@ -53,8 +62,7 @@ export default {
 <style scoped lang="less">
 
 .el-col{	
-	height: 60px;
-	// border: 1px solid red;
+	height: 60px;	
 }
 .admin_header{	
 	.header_logo {
@@ -97,8 +105,7 @@ export default {
       	text-align: center;
       	text-overflow: ellipsis;
       	white-space: nowrap;
-      	overflow: hidden;
-      	// border: 1px solid red;
+      	overflow: hidden;     
       	.name{
       		display: block;
         	width: 100%;

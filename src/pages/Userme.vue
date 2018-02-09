@@ -8,84 +8,87 @@
 					</div>
 				</el-col>
 				<el-col :span="16">
-					<div class="cell">用户名： {{username}}</div>
-					<div class="cell">个人简介： 暂无</div>
-					<!-- <div class="cell">文章数： <el-tag>{{articlenum}}</el-tag></div>
-					<div class="cell">评论数： <el-tag type="success">{{commentnum}}</el-tag></div>		 -->			
+					<el-row :gutter="20">
+						<el-col :span="6" align="right">用户名：</el-col>
+						<el-col :span="16">{{username||'暂未设置'}}</el-col>
+					</el-row>
+					<el-row :gutter="20">
+						<el-col :span="6" align="right">性别：</el-col>
+						<el-col :span="16">{{gender||'暂未设置'}}</el-col>
+					</el-row>
+					<el-row :gutter="20">
+						<el-col :span="6" align="right">年龄：</el-col>
+						<el-col :span="16">{{age||'暂未设置'}}</el-col>
+					</el-row>
+					<el-row :gutter="20">
+						<el-col :span="6" align="right">email：</el-col>
+						<el-col :span="16">{{email||'暂未设置'}}</el-col>
+					</el-row>
+					<el-row :gutter="20">
+						<el-col :span="6" align="right">是否是管理员：</el-col>
+						<el-col :span="16">
+							<el-tag v-if="is_admin==true" type="success">是</el-tag>
+							<el-tag v-else type="danger">否</el-tag>
+						</el-col>
+					</el-row>
+					<el-row :gutter="20">
+						<el-col :span="6" align="right">电话号码：</el-col>
+						<el-col :span="16">{{phone_number||'暂未填写'}}</el-col>
+					</el-row>
+					<el-row :gutter="20">
+						<el-col :span="6" align="right">注册时间：</el-col>
+						<el-col :span="16">{{sign_up_time}}</el-col>
+					</el-row>
+					<el-row :gutter="20">
+						<el-col :span="6" align="right">上次登录时间：</el-col>
+						<el-col :span="16">{{last_login_time}}</el-col>
+					</el-row>				
 				</el-col>				
 			</el-row>
 		</el-card>
-
-		<!-- <el-upload
-		  class="avatar-uploader"
-		  action="https://jsonplaceholder.typicode.com/posts/"
-		  :show-file-list="false"
-		  :on-success="handleAvatarSuccess"
-		  :before-upload="beforeAvatarUpload">
-		  <img v-if="imageUrl" :src="imageUrl" class="avatar">
-		  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-		</el-upload>
- -->
 	</div>
 </template>
 <script>
 	import API from '@/Api/api';
 	export default{
 		data(){
-			return{				
-				name:'',
-				articlenum:'',
-				commentnum:'',
-				imageUrl: ''			
+			return{		
+						
 			}
 		},
-		mounted(){
-			this.getData();
+		mounted(){			
+			// console.log(this.$store.state.user)
 		},
 		computed:{
 			username(){
-				return this.$store.state.user.token;
+				return this.$store.state.user.name;
+			},
+			age(){
+				return this.$store.state.user.age;
+			},
+			email(){
+				return this.$store.state.user.email;
+			},
+			is_admin(){
+				return this.$store.state.user.is_admin;
+			},
+			phone_number(){
+				return this.$store.state.user.phone_number;
+			},
+			gender(){
+				return this.$store.state.user.gender;
+			},
+
+			last_login_time(){
+				return this.$store.state.user.last_login_time;
+			},
+			sign_up_time(){
+				return this.$store.state.user.sign_up_time
 			}
 		},
 		methods:{
-			getData(){
-				let loading=this.$loading({
-					target:".el-main"
-				})
-				API.getUserDetail().then(res=>{
-					const data=res;
-					setTimeout(()=>{
-						this.name=data.name;
-						this.articlenum=data.articlenum;
-						this.commentnum=data.commentnum;
-						loading.close();
-					},1000);					
-				},err=>{
-					console.log(err);
-	                loading.close();
-	                this.$notify({
-	                    message: `${err}`,
-	                    type: 'error',
-	                    duration: 1000
-	                });
-				})
-
-			},
-			// handleAvatarSuccess(res, file) {
-		 //        this.imageUrl = URL.createObjectURL(file.raw);
-		 //    },
-		 //    beforeAvatarUpload(file) {
-		 //        const isJPG = file.type === 'image/jpeg';
-		 //        const isLt2M = file.size / 1024 / 1024 < 2;
-
-		 //        if (!isJPG) {
-		 //          this.$message.error('上传头像图片只能是 JPG 格式!');
-		 //        }
-		 //        if (!isLt2M) {
-		 //          this.$message.error('上传头像图片大小不能超过 2MB!');
-		 //        }
-		 //        return isJPG && isLt2M;
-		 //    }
+			
+			
 		}
 	}
 </script>
@@ -94,39 +97,16 @@
 		margin-top: 20px;		
 		.el-col{					
 			margin: 0 auto;
+			.el-row{
+				margin-bottom: 10px;
+			}
 		}
 		.tx{
 			width: 200px;
 			height: 200px;
 			overflow: hidden;			
 			border-radius: 100%;
-		}
-		.cell{
-			color: #494949;
-			margin-bottom: 15px;
-		}
+		}	
 	}
-	.avatar-uploader .el-upload {
-	    border: 1px dashed #d9d9d9;
-	    border-radius: 6px;
-	    cursor: pointer;
-	    position: relative;
-	    overflow: hidden;
-	}
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
+	
 </style>

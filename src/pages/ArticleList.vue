@@ -16,8 +16,7 @@
 	                搜索
 	            </el-button>	
 	        	
-	        </el-row>
-	                     
+	        </el-row>                     
 	        
 	    </el-card>
 		<el-card style="marginTop:20px">
@@ -39,31 +38,56 @@
 					</template>			
 				</el-table-column>
 				<el-table-column
-					prop="author"
+					prop="user_id"
 					sortable
 					label="作者">				
 				</el-table-column>
 				<el-table-column
-					prop="categoryname"
+					prop="category_id"
 					sortable
 					label="分类">				
 				</el-table-column>
 				<el-table-column
-					width="150"
+					prop="view_count"
 					sortable
-					prop="createtime"
-					label="创建时间">				
+					label="阅读数">				
+				</el-table-column>
+				<el-table-column
+					prop="good_count"
+					sortable
+					label="点赞数">				
+				</el-table-column>
+				<el-table-column
+					prop="is_published"
+					label="状态">	
+					<template slot-scope="scope">
+						<el-tag v-if="scope.row.is_published==1" type="success">已发布</el-tag>
+						<el-tag v-else type="warning">未发布</el-tag>
+					</template>			
 				</el-table-column>
 				<el-table-column
 					width="150"
 					sortable
-					prop="updatetime"
-					label="更新时间">				
+					prop="create_time"
+					label="创建时间">				
+				</el-table-column>				
+				<el-table-column				
+					sortable
+					prop="published_time"
+					label="发布时间">				
 				</el-table-column>
-				<el-table-column label="操作" min-width="160">
+				<el-table-column label="操作" min-width="250">
 	                <template slot-scope="scope">
+	                	<el-button v-if="scope.row.is_published==0"
+	                        size="small"	                       
+	                        >发布</el-button>
+	                    <el-button v-else
+	                        size="small"
+	                        type="primary"	                       
+	                        >取消发布</el-button>
 	                    <el-button
 	                        size="small"
+	                        type="success"
 	                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
 	                    <el-button
 	                        size="small"
@@ -87,22 +111,23 @@
 		},
 		mounted(){
 			this.getData();
+
+			console.log('data:',this.articledata);
 		},
 		methods: {
 			getData(){
 				let loading=this.$loading({
 					target:".el-main"
 				})
-				API.getArticleList().then(res=>{
-					setTimeout(()=>{
-						this.articledata=res;
-						loading.close();
-					},1000)
+				API.getBlogList().then(res=>{
+					console.log('获取文章列表res：',res);					
+					this.articledata=res.items;							
+					loading.close();				
 				},err=>{
-					console.log(err);
+					console.log('获取文章列表出错：',err);
 					loading.close();
 		            this.$notify({
-		              	message: `获取文章列表出错：${err}`,
+		              	message: `获取文章列表出错：${err.message}`,
 		              	type: 'error',
 		              	duration: 0
 		            });
@@ -114,8 +139,7 @@
 	            this.$router.push({path:'/article/edit/'+row.id})
 	        },
 	        //删除
-	        handleDelete(index, row) {
-	            
+	        handleDelete(index, row) {	            
 	            this.$confirm('是否确定要删除该文章？','提示',{
 	           		confirmButtonText:'确定',
 	           		cancelButtonText:'取消',
@@ -123,10 +147,22 @@
 	           	}).then(()=>{
 	           		console.log(index, row);
 	            	console.log('要删除的文章的id：',row.id);
-	           		this.$message({
-	           			message:"删除成功",
-	           			type:"success"
-	           		})
+	            	API.deleteBlog(row.id).then(res=>{
+	            		console.log('删除文章res:',res);
+	            		this.$message({
+		           			message:"删除成功",
+		           			type:"success"
+		           		})
+		           		this.getData();
+	            	},err=>{
+	            		console.log('删除文章出错：',err);
+	            		this.$notify({
+			              	message: `删除文章出错：${err.message}`,
+			              	type: 'error',
+			              	duration: 0
+			            });
+	            	})
+	           		
 	           	}).catch(()=>{
 	           		this.$message({
 	           			message:"已取消删除",

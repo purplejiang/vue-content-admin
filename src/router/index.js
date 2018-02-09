@@ -14,6 +14,7 @@ const Typelist = r => require(['@/pages/TypeList'],r);
 const Userlist = r => require(['@/pages/UserList'],r);
 const Userme = r => require(['@/pages/Userme'],r);
 const CommentList = r => require(['@/pages/CommentList'],r);
+const LabelManage = r => require(['@/pages/LabelManage'],r);
 
 Vue.use(Router)
 
@@ -72,6 +73,14 @@ const router = new Router({
         		}	
         	},
         	{
+        		path:'/label/list',
+        		component:LabelManage,
+        		meta:{
+        			requireAuth:true,
+        			bcrumd:['标签管理']
+        		}	
+        	},
+        	{
         		path:'/user/list',
         		component:Userlist,
         		meta:{
@@ -98,7 +107,7 @@ const router = new Router({
 
 router.beforeEach((to,from,next)=>{
 	if(to.meta.requireAuth){// 判断该路由是否需要登录权限
-		if(store.state.user.token){
+		if(store.state.user.id){
 			next();
 		}else{
 			next({

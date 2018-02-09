@@ -21,6 +21,7 @@
         		</template>
         		<el-menu-item index="/type/list"><i style="display:inline-block;width:14px;"></i>分类列表</el-menu-item>
 			</el-submenu>
+
 			<el-submenu index="comment">
 				<template slot="title">
           			<i class="el-icon-edit-outline"></i>
@@ -28,6 +29,7 @@
         		</template>
         		<el-menu-item index="/comment/list"><i style="display:inline-block;width:14px;"></i>评论列表</el-menu-item>
 			</el-submenu>
+			<el-menu-item index="/label/list"><i class="el-icon-tickets"></i>标签管理</el-menu-item>
 			<el-submenu index="user">
         		<template slot="title">
           			<i class="el-icon-menu"></i>
@@ -49,17 +51,14 @@
 	}
 </script>
 <style scoped lang="less">
-	.nav_container{
-		// border: 1px solid red;
+	.nav_container{		
 		width: 200px;
 		height: 100%;
 		.sidebar-content {
 			width: 200px;
 			height: 100%;
-			overflow-x: hidden;
-			// border: 1px solid red;
-			overflow-y: auto;
-			// background: #293038;
+			overflow-x: hidden;			
+			overflow-y: auto;			
 			background: #304156;			
 		}
 	}

@@ -41,8 +41,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.el-header{
-	// border: 1px solid red;
+.el-header{	
 	box-sizing: border-box;
 	padding: 0;
 	line-height: 60px;
@@ -54,29 +53,20 @@ export default {
     color: #333;
     text-align: center;
     line-height: 60px;
-    // min-width: 800px;
-}
-.el-aside {
-    /*background-color: #D3DCE6;*/
+}    
+.el-aside {  
     background: #304156;
-    color: #fff;
-    // text-align: center;
-    // line-height: 200px;
+    color: #fff;    
     border: 1px solid black;
     overflow: hidden;
-    box-sizing: border-box;
-
-    
+    box-sizing: border-box;    
 }
 .el-main {
     background-color: #E9EEF3;
     color: #333;
-    // text-align: center;
-    // line-height: 160px;
 }
 
-body > .el-container {
-    /*margin-bottom: 40px;*/
+body > .el-container {   
     height: 100%;
 }
 

@@ -24,8 +24,4 @@ export default {
     border: 1px solid black;
   
 }
-/*.el-card{
-    min-width: 800px;
-}*/
-
 </style>
