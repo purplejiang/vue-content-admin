@@ -12,7 +12,7 @@ npm install
 
 npm install --registry=https://registry.npm.taobao.org
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at http://localhost:8082/
 npm run dev
 
 # build for production with minification

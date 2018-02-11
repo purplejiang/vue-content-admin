@@ -126,7 +126,7 @@
 					console.log('获取分类列表出错：',err);
 					loading.close();
 		            this.$notify({
-		              	message: `获取分类列表出错：${err}`,
+		              	message: `获取分类列表出错：${err.message}`,
 		              	type: 'error',
 		              	duration: 0
 		            });

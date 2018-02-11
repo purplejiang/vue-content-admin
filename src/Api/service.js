@@ -48,6 +48,7 @@ axios.interceptors.response.use(
                     break;
                 case 404:
                 case 405:
+                case 504:
                     return Promise.reject({
                         message:err.response.statusText
                     });
