@@ -14,7 +14,7 @@
 					<el-input v-model="form.title" placeholder="输入文章标题"></el-input>
 				</el-form-item>
 				<el-form-item label="文章作者" prop="author">
-					<el-input v-model="form.author" placeholder="输入文章作者" readonly></el-input>
+					<el-input v-model="form.author" placeholder="输入文章作者"></el-input>
 				</el-form-item>
 				<el-form-item label="文章分类" prop="category_id">
 	    			<el-select v-model="form.category_id" placeholder="请选择文章分类">
