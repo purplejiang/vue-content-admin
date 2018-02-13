@@ -13,8 +13,8 @@
 				<el-form-item label="文章标题" prop="title">
 					<el-input v-model="form.title" placeholder="输入文章标题"></el-input>
 				</el-form-item>
-				<el-form-item label="文章作者" prop="author">
-					<el-input v-model="form.author" placeholder="输入文章作者"></el-input>
+				<el-form-item label="文章作者" prop="author" v-if="articleid">
+					<el-input v-model="form.author" placeholder="输入文章作者" readonly></el-input>
 				</el-form-item>
 				<el-form-item label="文章分类" prop="category_id">
 	    			<el-select v-model="form.category_id" placeholder="请选择文章分类">
@@ -49,9 +49,9 @@
 			        title: [
 			            { required: true, message: '文章标题不能为空', trigger: 'blur' }
 			        ],
-			        author: [
-			            { required: true, message: '文章作者不能为空', trigger: 'blur' }
-			        ],
+			        // author: [
+			        //     { required: true, message: '文章作者不能为空', trigger: 'blur' }
+			        // ],
 			        category_id:[
 			        	{ required: true, message: '请选择文章分类', trigger: 'change' }
 			        ],
@@ -63,6 +63,7 @@
 		},		
 		mounted(){
 			const articleid=this.$route.params.id;
+
 			if(articleid){
 				console.log('编辑文章id：',articleid);
 				this.getArticleDetailData(articleid);
@@ -70,6 +71,7 @@
 			this.articleid=articleid;
 			this.form.author=this.$store.state.user.token;
 			this.getCategories();
+			console.log('idddd',this.articleid)
 			
 		},
 		methods:{

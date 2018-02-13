@@ -9,7 +9,7 @@
 		<el-col :xs="12" :sm="12" :md="12" :lg="12">
 			<el-dropdown trigger="click" class="header_info" @command="handleCommand">
 				<a href="javascript:void(0)" class="name">
-					{{username}}<i class="el-icon-caret-bottom el-icon--right"></i>
+					<span>{{username}}</span><i class="el-icon-caret-bottom el-icon--right"></i>
 				</a>
 				<el-dropdown-menu slot="dropdown">
 					<el-dropdown-item><router-link to="/user/me">个人中心</router-link></el-dropdown-item>
@@ -32,6 +32,7 @@ export default {
 	computed:{
 		username(){
 			return this.$store.state.user.email;
+			
 		}
 	},
 	methods:{
@@ -92,7 +93,7 @@ export default {
     }
     .header_info{
     	float: right;
-      	width: 100px;
+      	width: 120px;
       	line-height: 60px;
       	padding: 0 10px;
       	height: 60px;
@@ -107,10 +108,17 @@ export default {
       	white-space: nowrap;
       	overflow: hidden;     
       	.name{
-      		display: block;
-        	width: 100%;
+      		display: block;        	
         	color: #fff;
-       	 	font-size: 14px;
+       	 	font-size: 14px;       	 	
+       	 	span{
+       	 		width: 60px;
+       	 		overflow: hidden;
+       	 		white-space: nowrap;
+       	 		text-overflow: ellipsis;
+       	 		display: inline-block;       	 		
+       	 		vertical-align: middle;
+       	 	}
       	}
       	.el-dropdown-menu {
         	padding: 0 !important;

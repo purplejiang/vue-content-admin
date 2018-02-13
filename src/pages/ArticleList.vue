@@ -20,11 +20,20 @@
 	        
 	    </el-card>
 		<el-card style="marginTop:20px">
+			<el-button size="small" type="danger" style="marginBottom:20px;"
+				:disabled="this.selecteds.length===0"
+				@click="handleDeleteAll">批量删除</el-button>
 			<el-table
 				border
 				stripe
 				size="small"
+				@selection-change="selectsChange"
 				:data="articledata">
+				<el-table-column
+					type="selection"
+					width="55"
+					>					
+				</el-table-column>
 				<el-table-column
 					prop="id"
 					sortable
@@ -105,7 +114,8 @@
 		data(){
 			return{
 				articledata:[],
-				searchvalue:'',				
+				searchvalue:'',	
+				selecteds:[]//选中的值			
 				
 			}
 		},
@@ -131,6 +141,17 @@
 		              	type: 'error',
 		              	duration: 0
 		            });
+				})
+			},
+			selectsChange(selects){
+				this.selecteds=selects;
+			},
+			//批量删除
+			handleDeleteAll(){
+				console.log('选中的项：',this.selecteds);
+				this.$message({
+					message:'待接入接口',
+					type:'success'
 				})
 			},
 			//编辑
