@@ -11,8 +11,9 @@
           			<i class="el-icon-document"></i>
           			文章管理
         		</template>
-        		<el-menu-item index="/article/list"><i style="display:inline-block;width:14px;"></i>文章列表</el-menu-item>
-        		<el-menu-item index="/article/add"><i style="display:inline-block;width:14px;"></i>新建文章</el-menu-item>
+        		<el-menu-item index="/article/list/published"><i style="display:inline-block;width:14px;"></i>已发布</el-menu-item>
+        		<el-menu-item index="/article/list/shenhe"><i style="display:inline-block;width:14px;"></i>审核</el-menu-item>
+        		<el-menu-item index="/article/list/caogao"><i style="display:inline-block;width:14px;"></i>草稿</el-menu-item>
 			</el-submenu>
 			<el-submenu index="type">
 				<template slot="title">

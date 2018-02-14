@@ -11,7 +11,7 @@
             <el-container>
                 <el-main>
                 	<common-bread></common-bread>
-                	<router-view/>
+                	<router-view/>                    
                 </el-main>
                 <el-footer>~~~~~by jt</el-footer>
             </el-container>
@@ -64,6 +64,7 @@ export default {
 .el-main {
     background-color: #E9EEF3;
     color: #333;
+    padding-bottom: 0;
 }
 
 body > .el-container {   

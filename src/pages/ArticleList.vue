@@ -85,15 +85,15 @@
 					prop="published_time"
 					label="发布时间">				
 				</el-table-column>
-				<el-table-column label="操作" min-width="250">
-	                <template slot-scope="scope">
+				<el-table-column label="操作" min-width="190">
+	                <template slot-scope="scope">	                	
 	                	<el-button v-if="scope.row.is_published==0"
 	                        size="small"	                       
 	                        >发布</el-button>
 	                    <el-button v-else
 	                        size="small"
 	                        type="primary"	                       
-	                        >取消发布</el-button>
+	                        >撤回</el-button>
 	                    <el-button
 	                        size="small"
 	                        type="success"
@@ -120,28 +120,47 @@
 			}
 		},
 		mounted(){
+			// let type=this.$route.params.type;
+			// console.log(type)
 			this.getData();
 
 			console.log('data:',this.articledata);
 		},
+		watch:{
+			"$route":"getData"
+			// $route(to,from){
+			// 	this.getData();
+			// }
+		},
 		methods: {
 			getData(){
+				let type=this.$route.params.type;
+				console.log(type);
 				let loading=this.$loading({
 					target:".el-main"
 				})
-				API.getBlogList().then(res=>{
-					console.log('获取文章列表res：',res);					
-					this.articledata=res.items;							
-					loading.close();				
-				},err=>{
-					console.log('获取文章列表出错：',err);
-					loading.close();
-		            this.$notify({
-		              	message: `获取文章列表出错：${err.message}`,
-		              	type: 'error',
-		              	duration: 0
-		            });
-				})
+				if(type=='published'){
+					API.getBlogList().then(res=>{
+						console.log('获取文章列表res：',res);					
+						this.articledata=res.items;							
+						loading.close();				
+					},err=>{
+						console.log('获取文章列表出错：',err);
+						loading.close();
+			            this.$notify({
+			              	message: `获取文章列表出错：${err.message}`,
+			              	type: 'error',
+			              	duration: 0
+			            });
+					})
+				}else{
+					setTimeout(()=>{
+						this.articledata=[];							
+						loading.close();
+					},500)
+					
+				}
+				
 			},
 			selectsChange(selects){
 				this.selecteds=selects;

@@ -25,7 +25,7 @@ const router = new Router({
         component: Layout,
         children:[
         	{
-        		path:'/article/list',
+        		path:'/article/list/:type',
         		component:Articlelist,
         		meta:{
         			requireAuth:true,
