@@ -7,8 +7,8 @@ export default{
 		return service.get('/api/blogs');
 	},
 	//获取文章详情
-	getBlogDetail(id){	
-		return service.get(`/api/blogs/${id}`);		
+	getBlogDetail(id){
+		return service.get(`/api/blogs/${id}`);
 	},
 	//添加blog
 	addBlog(obj){
@@ -21,7 +21,7 @@ export default{
 	//删除blog
 	deleteBlog(id){
 		return service.delete(`/api/blogs/${id}`);
-	},	
+	},
 	//获取分类列表
 	getCategoryList(){
 		return service.get('/api/category');
@@ -33,7 +33,7 @@ export default{
 	//删除分类
 	deleteCategoty(id){
 		return service.delete(`/api/category/${id}`);
-	},	
+	},
 	//获取标签列表
 	getLabelList(){
 		return service.get('/api/labels');
@@ -58,18 +58,18 @@ export default{
 	getUserList(){
 		// return service.get('userlist.json');
 		return service.get('/api/users');
-	},	
+	},
 	//新增用户
 	addUser(obj){
 		return service.post('/api/users',obj);
 	},
-	// //修改用户信息
-	// updateUser(obj){
-	// 	return service.post('/api/users',obj)
-	// },
+	//修改用户信息
+	updateUser(obj){
+		return service.patch('/api/users/update',obj)
+	},
 	//获取用户详细信息
-	getUserDetail(){
-		return service.get('userdetail.json');
+	getUserDetail(id){
+		return service.get(`/api/users/${id}`);
 	},
 	//用户登录
 	login(obj){
@@ -78,5 +78,9 @@ export default{
 	//退出登录
 	logout(){
 		return service.get('/api/users/logout');
+	},
+	//修改用户密码
+	changePassword(obj){
+		return service.post('/api/users/change-password',obj);
 	}
 }

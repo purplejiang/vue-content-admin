@@ -10,10 +10,10 @@
         </el-card>
 
         <el-dialog title="新增用户" :visible.sync="isshow_dialog_add_user" width="400px" append-to-body center>
-            <el-form 
-                :model="addform" 
-                :rules="addrules"  
-                ref="addform"           
+            <el-form
+                :model="addform"
+                :rules="addrules"
+                ref="addform"
                 size="small">
                 <!-- <el-form-item label="用户名称" prop="name">
                     <el-input v-model="addform.name" auto-complete="off"></el-input>
@@ -24,11 +24,11 @@
                  <el-form-item label="账户密码" prop="password">
                     <el-input v-model="addform.password" type="password" auto-complete="off"></el-input>
                 </el-form-item>
-                
+
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="addUser('addform')" type="primary">确定</el-button>
-                <el-button @click="isshow_dialog_add_user = false">取消</el-button>               
+                <el-button @click="isshow_dialog_add_user = false">取消</el-button>
             </div>
         </el-dialog>
 
@@ -36,7 +36,7 @@
             <el-form ref="editform" label-width="100px"
                 :rules="editrules" :model="editform"
                 size="small">
-               
+
                 <el-form-item label="email地址" prop="email">
                     <el-input v-model="editform.email" auto-complete="off"></el-input>
                 </el-form-item>
@@ -48,19 +48,19 @@
                 </el-form-item>
                 <el-form-item label="性别" prop="gender">
                     <el-radio v-model="editform.gender" label="0">男</el-radio>
-                    <el-radio v-model="editform.gender" label="1">女</el-radio> 
+                    <el-radio v-model="editform.gender" label="1">女</el-radio>
                 </el-form-item>
                 <el-form-item label="电话号码" prop="phone_number">
                     <el-input v-model="editform.phone_number" auto-complete="off"></el-input>
                 </el-form-item>
-                
+
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="editUser('editform')" type="primary">确定</el-button>
-                <el-button @click="isshow_dialog_edit_user = false">取消</el-button>               
+                <el-button @click="isshow_dialog_edit_user = false">取消</el-button>
             </div>
         </el-dialog>
-   
+
         <el-card :body-style="{padding:'15px'}" style="marginTop:20px;">
             <el-table
                 :data="tableData"
@@ -71,43 +71,43 @@
                 <el-table-column
                     prop="id"
                     sortable
-                    label="id"               
+                    label="id"
                     >
                 </el-table-column>
                 <el-table-column
                     prop="name"
                     sortable
-                    label="用户名"                
-                   >                   
+                    label="用户名"
+                   >
                 </el-table-column>
                 <el-table-column
-                    prop="email"                   
-                    label="email"                
-                    >                   
+                    prop="email"
+                    label="email"
+                    >
                 </el-table-column>
                 <el-table-column
-                    prop="age"                   
-                    label="是否是管理员"                
+                    prop="age"
+                    label="是否是管理员"
                     >
                     <template slot-scope="scope">
                         <el-tag v-if="scope.row.is_admin==true">是</el-tag>
                         <el-tag type="danger" v-else>否</el-tag>
-                    </template>                   
+                    </template>
                 </el-table-column>
                 <el-table-column
-                    prop="age"                   
-                    label="年龄"                
-                    >                   
+                    prop="age"
+                    label="年龄"
+                    >
                 </el-table-column>
                 <el-table-column
-                    prop="gender"                   
-                    label="性别"                
-                    >                                      
+                    prop="gender"
+                    label="性别"
+                    >
                 </el-table-column>
                 <el-table-column
-                    prop="phone_number"                   
-                    label="电话号码"                
-                    >                   
+                    prop="phone_number"
+                    label="电话号码"
+                    >
                 </el-table-column>
                 <el-table-column
                     label="注册时间"
@@ -125,7 +125,7 @@
                         <span>{{ scope.row.last_login_time }}</span>
                     </template>
                 </el-table-column>
-                
+
                 <el-table-column label="操作" min-width="230">
                     <template slot-scope="scope">
                         <el-button
@@ -148,7 +148,7 @@
 
 <script>
 import API from '@/Api/api';
-export default {  
+export default {
     data () {
         return {
             tableData:[],
@@ -178,7 +178,7 @@ export default {
                 password: [
                   { required: true, message: '密码不能为空', trigger: 'blur' }
                 ],
-            }       
+            }
         }
     },
     mounted(){
@@ -186,16 +186,16 @@ export default {
     },
     methods: {
         getData(){
-            let loading=this.$loading({            
+            let loading=this.$loading({
                 target:'.el-main'
             })
             let _this=this;
             API.getUserList().then(res=>{
                 console.log('获取用户列表数据res：',res);
                 this.tableData=res.items;
-                loading.close();                         
+                loading.close();
             },err=>{
-                console.log('获取用户列表出错:',err);                
+                console.log('获取用户列表出错:',err);
                 this.$notify({
                     message: `获取用户列表出错：${err.message}`,
                     type: 'error',
@@ -224,8 +224,8 @@ export default {
                             type:'error',
                             duration:0
                         })
-                    })                   
-                    
+                    })
+
                 }
             })
         },
@@ -236,9 +236,9 @@ export default {
                     this.$message({
                         message:"修改功能暂未接入接口",
                         type:"success"
-                    }) 
-                    this.isshow_dialog_edit_user=false;   
-                    this.getData(); 
+                    })
+                    this.isshow_dialog_edit_user=false;
+                    this.getData();
                 }
             })
         },
@@ -246,7 +246,7 @@ export default {
 
         },
         handleEdit(index, row) {
-            console.log(index, row);            
+            console.log(index, row);
             this.isshow_dialog_edit_user=true;
             this.editform.name=row.name;
             this.editform.email=row.email;

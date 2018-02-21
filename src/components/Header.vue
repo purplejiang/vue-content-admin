@@ -9,7 +9,7 @@
 		<el-col :xs="12" :sm="12" :md="12" :lg="12">
 			<el-dropdown trigger="click" class="header_info" @command="handleCommand">
 				<a href="javascript:void(0)" class="name">
-					<span>{{username}}</span><i class="el-icon-caret-bottom el-icon--right"></i>
+					<span><img :src="useravatar"></span><i class="el-icon-caret-bottom el-icon--right"></i>
 				</a>
 				<el-dropdown-menu slot="dropdown">
 					<el-dropdown-item><router-link to="/user/me">个人中心</router-link></el-dropdown-item>
@@ -18,12 +18,13 @@
 				</el-dropdown-menu>
 			</el-dropdown>
 		</el-col>
-	</el-row> 
+	</el-row>
 </template>
 <script>
 import localStore from '@/utils/localStore';
 import API from '@/Api/api';
-export default {  
+import {imgbaseURL} from '@/utils/config';
+export default {
 	data(){
 		return{
 
@@ -31,9 +32,12 @@ export default {
 	},
 	computed:{
 		username(){
-			return this.$store.state.user.email;
-			
-		}
+			return ithis.$store.state.user.email;
+
+		},
+    useravatar(){
+      return imgbaseURL + this.$store.state.user.avatar_small;
+    }
 	},
 	methods:{
 		handleCommand(command) { // 点击菜单项触发的事件回调
@@ -53,7 +57,7 @@ export default {
 						duration:0
 					})
 				})
-				
+
 			}
 		}
 	}
@@ -62,10 +66,10 @@ export default {
 
 <style scoped lang="less">
 
-.el-col{	
-	height: 60px;	
+.el-col{
+	height: 60px;
 }
-.admin_header{	
+.admin_header{
 	.header_logo {
     	position: relative;
       	display: block;
@@ -77,19 +81,19 @@ export default {
      	height: 60px;
       	line-height: 60px;
       	overflow: hidden;
-      	float: left;      
+      	float: left;
     }
     .header_home{
     	display: block;
       	height: 60px;
       	float: left;
-      	box-sizing: border-box;      
+      	box-sizing: border-box;
       	width: 140px;
 		text-align: center;
       	color: #fff;
       	font-size: 14px;
       	line-height: 60px;
-      	border-right: 1px solid #008fbf;      	
+      	border-right: 1px solid #008fbf;
     }
     .header_info{
     	float: right;
@@ -106,18 +110,23 @@ export default {
       	text-align: center;
       	text-overflow: ellipsis;
       	white-space: nowrap;
-      	overflow: hidden;     
+      	overflow: hidden;
       	.name{
-      		display: block;        	
+      		display: block;
         	color: #fff;
-       	 	font-size: 14px;       	 	
+       	 	font-size: 14px;
        	 	span{
-       	 		width: 60px;
+       	 		width: 40px;
+            height:40px;
+            border-radius:100%;
        	 		overflow: hidden;
        	 		white-space: nowrap;
        	 		text-overflow: ellipsis;
-       	 		display: inline-block;       	 		
+       	 		display: inline-block;
        	 		vertical-align: middle;
+            img{
+              width:100%;
+            }
        	 	}
       	}
       	.el-dropdown-menu {

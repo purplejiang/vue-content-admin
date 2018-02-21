@@ -1,29 +1,29 @@
-<template>    
+<template>
     <el-container>
-        
-        <el-header>  
+
+        <el-header>
         	<Header/>
-        </el-header>        
+        </el-header>
         <el-container>
-            <el-aside width="200px">   
-            	<side-nav></side-nav>             
+            <el-aside width="200px">
+            	<side-nav></side-nav>
             </el-aside>
             <el-container>
                 <el-main>
                 	<common-bread></common-bread>
-                	<router-view/>                    
+                	<router-view/>
                 </el-main>
-                <el-footer>~~~~~by jt</el-footer>
+                <!-- <el-footer>~~~~~by jt</el-footer> -->
             </el-container>
       </el-container>
     </el-container>
-  
+
 </template>
 <script>
 import Header from '@/components/Header';
 import SideNav from '@/components/SideNav';
 import CommonBread from '@/components/CommonBread';
-export default {  
+export default {
 	data () {
 		return {
 			msg: 'Welcome to Your Vue.js App'
@@ -35,13 +35,13 @@ export default {
 		CommonBread
 	},
 	methods:{
-		
+
 	}
 }
 </script>
 
 <style scoped lang="less">
-.el-header{	
+.el-header{
 	box-sizing: border-box;
 	padding: 0;
 	line-height: 60px;
@@ -53,13 +53,13 @@ export default {
     color: #333;
     text-align: center;
     line-height: 60px;
-}    
-.el-aside {  
+}
+.el-aside {
     background: #304156;
-    color: #fff;    
+    color: #fff;
     border: 1px solid black;
     overflow: hidden;
-    box-sizing: border-box;    
+    box-sizing: border-box;
 }
 .el-main {
     background-color: #E9EEF3;
@@ -67,7 +67,7 @@ export default {
     padding-bottom: 0;
 }
 
-body > .el-container {   
+body > .el-container {
     height: 100%;
 }
 
