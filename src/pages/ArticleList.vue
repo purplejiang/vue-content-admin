@@ -86,22 +86,24 @@
 					label="发布时间">				
 				</el-table-column>
 				<el-table-column label="操作" min-width="190">
-	                <template slot-scope="scope">	                	
-	                	<el-button v-if="scope.row.is_published==0"
-	                        size="small"	                       
-	                        >发布</el-button>
-	                    <el-button v-else
-	                        size="small"
-	                        type="primary"	                       
-	                        >撤回</el-button>
-	                    <el-button
-	                        size="small"
-	                        type="success"
-	                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-	                    <el-button
-	                        size="small"
-	                        type="danger"
-	                        @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+	                <template slot-scope="scope">
+	                	<el-button-group>               	
+		                	<el-button v-if="scope.row.is_published==0"
+		                        size="small"	                       
+		                        >发布</el-button>
+		                    <el-button v-else
+		                        size="small"
+		                        type="primary"	                       
+		                        >撤回</el-button>
+		                    <el-button
+		                        size="small"
+		                        type="success"
+		                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+		                    <el-button
+		                        size="small"
+		                        type="danger"
+		                        @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+	                    </el-button-group>	 
 	                </template>
 	            </el-table-column>
 			</el-table>

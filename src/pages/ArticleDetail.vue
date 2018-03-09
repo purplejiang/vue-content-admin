@@ -15,7 +15,7 @@
 								
 				</el-row>
 			</div>			
-			<div class="content">
+			<div class="content" v-html="content">
 				{{content}}
 			</div>
 		</el-card>

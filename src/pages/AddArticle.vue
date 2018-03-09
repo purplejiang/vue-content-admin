@@ -21,10 +21,12 @@
 	      				<el-option v-for="(item,index) in categories" :label="item.name" :value="item.id" :key="index"></el-option>	      				
 	    			</el-select>
 	 			</el-form-item>	 			
-	 			<el-form-item label="文章内容" prop="content">
-	 				<el-input type="textarea" v-model="form.content"
-	 					placeholder="输入文章内容" :rows="20"></el-input>
+	 			<el-form-item label="文章内容" prop="content" class="ar_content">
+	 				<!-- <el-input type="textarea" v-model="form.content"
+	 					placeholder="输入文章内容" :rows="20"></el-input> -->
+	 				<quill-editor class="editor" v-model="form.content"></quill-editor>
 	 			</el-form-item>
+	 			
 	 			<el-form-item>
 				    <el-button type="primary" @click="onSubmit('form')">提交</el-button>				  
 				</el-form-item>
@@ -33,7 +35,11 @@
 	</div>
 </template>
 <script>
+	import 'quill/dist/quill.core.css'
+	import 'quill/dist/quill.snow.css'
+	import 'quill/dist/quill.bubble.css'
 	import API from '@/Api/api';	
+	import { quillEditor } from 'vue-quill-editor'
 	export default{
 		data(){
 			return{
@@ -60,7 +66,10 @@
 			        ]
 		      	},
 			}
-		},		
+		},	
+		components:{
+			quillEditor
+		},	
 		mounted(){
 			const articleid=this.$route.params.id;
 
@@ -137,7 +146,7 @@
 									message:"修改文章成功",
 									type:"success"
 								})
-								this.$router.push({path:'/article/list'});
+								this.$router.push({path:'/article/list/published'});
 							},err=>{
 								console.log('修改文章出错：',err);
 								this.$notify({
@@ -160,7 +169,7 @@
 									message:"新增文章成功",
 									type:"success"
 								})
-								this.$router.push({path:'/article/list'});
+								this.$router.push({path:'/article/list/published'});
 							},err=>{
 								console.log('新增文章出错:',err);
 								this.$notify({
@@ -184,5 +193,31 @@
 	}
 </script>
 <style scoped lang="less">
-	
+	// .editor{
+	// 	width: 100%;
+		
+	// 	height: 100%;
+	// }
+	// .quill-editor {
+	// 	height: 500px;
+	// 	border: 1px solid red;
+	// 	display: flex;
+	// 	// display: table;
+	// 	flex-direction:column; 
+	// 	// overflow: hidden;
+	// 	.ql-toolbar{
+	// 		border: 1px solid blue !important;
+	// 		flex: 1;
+		 
+	// 	}
+	// 	.ql-container{
+	// 		border: 1px solid green !important;
+	// 		flex:1;
+	// 		height: 500px !important;
+	// 	}
+	// }
+ 
+	.ar_content .el-form-item__content{
+		height: 350px;
+	}
 </style>

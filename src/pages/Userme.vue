@@ -251,6 +251,7 @@
 						type:'error',
 						duration:0
 					})
+					loading.close();
 				})
 			},
 			//显示修改用户信息的对话框
